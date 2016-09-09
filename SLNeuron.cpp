@@ -50,11 +50,11 @@ void SLNeuron::GetOutputFromInput(std::vector<int>& output)
 
 void SLNeuron::GetNetFromInput(std::vector<int>& net)
 {
-	int sum = bias*weight.at(0);
+	int sum = bias*weight.at(0);//bias*weight(0)의 값은 미리 구해놓는다.
 	int pow = 1;
 	int n = net.size();
 
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < n; i++)//i는 input의 배열이 되고 j는 배열참조의 Index역할을 하게 된다.
 	{
 		for (int j = 0; j < nofInput; j++)
 		{
@@ -93,7 +93,7 @@ void SLNeuron::UpdateWeight(const std::vector<int>& expectedOutput,const std::ve
 	int pow = 1;
 	for (int i = 0; i < n; i++)
 	{
-		weight.at(0) += bias*(expectedOutput.at(i) - output.at(i))*constant;
+		weight.at(0) += bias*(expectedOutput.at(i) - output.at(i))*constant;//Loop안에 넣기 곤란한 bias와의 계산은 따로 한다.
 		for (int j = 0; j < nofInput; j++)
 		{
 			weight.at(j+1) += ((i&pow)>>j)*(expectedOutput.at(i) - output.at(i))*constant;
@@ -111,7 +111,7 @@ bool SLNeuron::isLearningOver(const std::vector<int>& expectedOutput, const std:
 	int n = output.size();
 	for (int i = 0; i < n; i++)
 	{
-		if (expectedOutput.at(i) != output.at(i))
+		if (expectedOutput.at(i) != output.at(i))//기대 출력값과 하나라도 다른게 있으면 false
 			return false;
 	}
 	return true;
