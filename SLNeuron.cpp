@@ -91,12 +91,14 @@ void SLNeuron::UpdateWeight(const std::vector<int>& expectedOutput,const std::ve
 {
 	int n = output.size();
 	int pow = 1;
+	int error;
 	for (int i = 0; i < n; i++)
 	{
-		weight.at(0) += bias*(expectedOutput.at(i) - output.at(i))*constant;//Loop안에 넣기 곤란한 bias와의 계산은 따로 한다.
+		error = expectedOutput.at(i) - output.at(i);
+		weight.at(0) += bias*error*constant;//Loop안에 넣기 곤란한 bias와의 계산은 따로 한다.
 		for (int j = 0; j < nofInput; j++)
 		{
-			weight.at(j+1) += ((i&pow)>>j)*(expectedOutput.at(i) - output.at(i))*constant;
+			weight.at(j+1) += ((i&pow)>>j)*error*constant;
 			pow <<= 1;
 		}
 		pow = 1;
