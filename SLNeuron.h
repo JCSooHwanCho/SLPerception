@@ -17,11 +17,12 @@ public:
 		weight.assign(w.begin(), w.end());
 	}
 	void Learn(std::vector<int>& expectedOutput);//Output값이 expectedOutput값과 같아질때까지 Learning을 수행하는 함수
+	int GetOutputFromInput(std::vector<int> Input);
 private:
 	void PrintWeight();//객체의 현재 Weight값을 순서대로 출력한다.
-	void GetOutputFromInput(std::vector<int>& output);//output을 저장하고자 하는 vector를 입력받아 모든 Input에 대한 Output값을 저장한다.
-	void GetNetFromInput(std::vector<int>& net);//GetOutFromInput의 내부에서 사용되는 함수로 Input으로 부터 Net값을 얻는다
-	void GetOutputFromNets(const std::vector<int>& net, std::vector<int>& output);//GetOutFromInput의 내부에서 사용되는 함수로 Net값으로 부터 Output값을 얻는다.
+	void GetOutputsFromAllInputs(std::vector<int>& output);//output을 저장하고자 하는 vector를 입력받아 모든 Input에 대한 Output값을 저장한다.
+	void GetNetsFromAllInputs(std::vector<int>& net);//GetOutFromInput의 내부에서 사용되는 함수로 Input으로 부터 Net값을 얻는다
+	void GetOutputsFromNets(const std::vector<int>& net, std::vector<int>& output);//GetOutFromInput의 내부에서 사용되는 함수로 Net값으로 부터 Output값을 얻는다.
 	int Activate(int net);//net값을 입력받아 활성화 여부를 반환한다.
 	void UpdateWeight(const std::vector<int>& expectedOutput, const std::vector<int>& output);//weight를 갱신한다.
 	bool isLearningOver(const std::vector<int>& expectedOutput, const std::vector<int>& output);//Learning이 끝났는지 여부를 반환한다.

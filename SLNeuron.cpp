@@ -22,7 +22,7 @@ void SLNeuron::Learn(std::vector<int>& expectedOutput)
 	}
 
 	do {
-		GetOutputFromInput(output);
+		GetOutputsFromAllInputs(output);
 		UpdateWeight(expectedOutput,output);
 	} while ((!isLearningOver(expectedOutput,output))&&(learningCount++<limits));
 
@@ -33,7 +33,7 @@ void SLNeuron::Learn(std::vector<int>& expectedOutput)
 	return;
 }
 
-void SLNeuron::GetOutputFromInput(std::vector<int>& output)
+void SLNeuron::GetOutputsFromAllInputs(std::vector<int>& output)
 {
 	std::vector<int> net;
 	int n = output.size();
@@ -42,13 +42,13 @@ void SLNeuron::GetOutputFromInput(std::vector<int>& output)
 		net.push_back(0);
 	}
 
-	GetNetFromInput(net);
-	GetOutputFromNets(net, output);
+	GetNetsFromAllInputs(net);
+	GetOutputsFromNets(net, output);
 
 	return;
 }
 
-void SLNeuron::GetNetFromInput(std::vector<int>& net)
+void SLNeuron::GetNetsFromAllInputs(std::vector<int>& net)
 {
 	int sum = bias*weight.at(0);//bias*weight(0)의 값은 미리 구해놓는다.
 	int pow = 1;
@@ -68,7 +68,7 @@ void SLNeuron::GetNetFromInput(std::vector<int>& net)
 
 	return;
 }
-void SLNeuron::GetOutputFromNets(const std::vector<int>& net, std::vector<int>& output)
+void SLNeuron::GetOutputsFromNets(const std::vector<int>& net, std::vector<int>& output)
 {
 	int size = net.size();
 
@@ -117,4 +117,26 @@ bool SLNeuron::isLearningOver(const std::vector<int>& expectedOutput, const std:
 			return false;
 	}
 	return true;
+}
+int SLNeuron::GetOutputFromInput(std::vector<int> Input)//Input의 유효성 검사와 동시에 Output 값을 반환한다.
+{
+	if (nofInput != Input.size())
+	{
+		std::cout << "Invalid Input!" << std::endl;
+		return -1;
+	}
+	
+	int sum=bias*weight.at(0);
+
+	for (int i = 0; i < nofInput; i++)
+	{
+		if (Input.at[i] < 0 && Input.at[i]>1)
+		{
+			std::cout << "Invalid Input!" << std::endl;
+			return -1;
+		}
+		sum += Input.at(i)*weight.at(i + 1);
+	}
+
+	return Activate(sum);
 }
