@@ -15,6 +15,12 @@ void SLNeuron<T>::PrintWeight()
 template <typename T>
 void SLNeuron<T>::Learn()
 {
+	if (learningCount == 0)
+	{
+		std::cout << "Initial Weight" < :std::endl;
+		PrintWeight();
+		std::cout << std::endl;
+	}
 	std::vector<T> output;
 	int size = static_cast<int>(pow(2, nofInput));
 
@@ -100,12 +106,10 @@ void SLNeuron<T>::UpdateWeight(const std::vector<T>& output)
 	int n = static_cast<int>(pow(2, nofInput));
 	int p = 1;
 	T error;
-	T powoferror = 0;
 
 	for (int i = 0; i < n; i++)
 	{
 		error = ExpectedOutput.at(i) - output.at(i);
-		powoferror += error*error;
 		weight.at(0) += bias*error*constant;//Loop안에 넣기 곤란한 bias와의 계산은 따로 한다.
 		for (int j = 0; j < nofInput; j++)
 		{
@@ -118,7 +122,6 @@ void SLNeuron<T>::UpdateWeight(const std::vector<T>& output)
 		p = 1;
 
 	}
-	std::cout << "Error of this Learning = " << powoferror << std::endl;
 	PrintWeight();
 	return;
 }

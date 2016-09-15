@@ -26,7 +26,7 @@ int main()
 	std::cout << "Insert Value of Bias(except 0) : ";
 	std::cin >> Bias;
 
-	if (Constant*Bias == 0)
+	if (Constant*Bias == 0.0)
 	{
 		std::cout << "Both Constant and Bias mustn't be 0" << std::endl;
 		exit(1);
@@ -39,7 +39,7 @@ int main()
 	const int Range_of_Initial_Weight = 10;//weight의 초기화 범위
 	std::vector<double> Initial_Weight;
 
-	IntializeVectorWithRangedRandomValue(Initial_Weight,NofInput+1,Range_of_Initial_Weight);
+	IntializeVectorWithRangedRandomValue<double>(Initial_Weight,NofInput+1,Range_of_Initial_Weight);
 
 	SLNeuron<double> *Neuron = new SLNeuron<double>(NofInput,Initial_Weight, Threshold, Constant,Bias,Limit);
 
