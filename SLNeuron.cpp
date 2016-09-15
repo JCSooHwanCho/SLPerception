@@ -15,14 +15,15 @@ void SLNeuron<T>::PrintWeight()
 template <typename T>
 void SLNeuron<T>::Learn()
 {
+	std::vector<T> output;
+	int size = static_cast<int>(pow(2, nofInput));
+
 	if (learningCount == 0)
 	{
-		std::cout << "Initial Weight" < :std::endl;
+		std::cout << "Initial Weight" << std::endl;
 		PrintWeight();
 		std::cout << std::endl;
 	}
-	std::vector<T> output;
-	int size = static_cast<int>(pow(2, nofInput));
 
 	for (int i = 0; i < size; i++)
 	{
@@ -122,6 +123,7 @@ void SLNeuron<T>::UpdateWeight(const std::vector<T>& output)
 		p = 1;
 
 	}
+	std::cout << "learning " << learningCount + 1<<std::endl;
 	PrintWeight();
 	return;
 }
