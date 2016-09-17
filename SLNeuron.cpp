@@ -108,6 +108,7 @@ void SLNeuron<T>::UpdateWeight(const std::vector<T>& output)
 	int p = 1;
 	T error;
 
+	std::cout << "learning " << learningCount + 1 << std::endl;
 	for (int i = 0; i < n; i++)
 	{
 		error = ExpectedOutput.at(i) - output.at(i);
@@ -123,7 +124,8 @@ void SLNeuron<T>::UpdateWeight(const std::vector<T>& output)
 		p = 1;
 
 	}
-	std::cout << "learning " << learningCount + 1<<std::endl;
+	
+	PrintOutputsandExpectedOutputs(output);
 	PrintWeight();
 	return;
 }
@@ -210,4 +212,25 @@ SLNeuron<T>& SLNeuron<T>::operator=(SLNeuron<T>& n)
 	limits = n.limits;
 
 	return *this;
+}
+
+template <typename T>
+void SLNeuron<T>::IntializeVectorWithRangedRandomValue(std::vector<T>& a, int size, int Range)
+{
+	std::uniform_real_distribution<double>  unif((-1)*Range, Range);
+	std::default_random_engine re(std::chrono::system_clock::now().time_since_epoch().count());
+	for (int i = 0; i < size; i++)
+	{
+		a.push_back(static_cast<T>(unif(re)));
+	}
+}
+
+template <typename T>
+void SLNeuron<T>::PrintOutputsandExpectedOutputs(const std::vector<T>& output)
+{
+	int n = output.size();
+	for (int i = 0; i < n; i++)
+	{
+		std::cout << "ExpectedOutput : " << ExpectedOutput.at(i) << " RealOutput : " << output.at(i) << std::endl;
+	}
 }

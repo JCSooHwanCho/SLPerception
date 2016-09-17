@@ -2,8 +2,8 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
-
-
+#include<random>
+#include<chrono>
 
 template<typename T>
 class SLNeuron {
@@ -63,7 +63,7 @@ public:
 	void Learn();//1번의 Learning을 수행한다.
 	T GetOutputFromInput(std::vector<T>& Input);//Input을 벡터형태로 받아 결과값을 반환한다.
 	bool isLearningOver();//Learning이 끝났는지 여부를 반환한다.
-
+	static void IntializeVectorWithRangedRandomValue(std::vector<T>& a, int size, int Range);//Weight Vector를 랜덤한 값으로 초기화한다.
 private:
 
 	int nofInput;//bias를 제외한 Input값
@@ -82,5 +82,6 @@ private:
 	T Activate(T net);//net값을 입력받아 활성화 여부를 반환한다.
 	void UpdateWeight(const std::vector<T>& output);//weight를 갱신한다.
 	void MakeExpectedOutput();//생성자에서 호출되어 희망하는 출력을 입력받는다.
+	void PrintOutputsandExpectedOutputs(const std::vector<T>& output);
 };
 
