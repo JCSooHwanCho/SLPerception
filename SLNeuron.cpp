@@ -22,15 +22,15 @@ void SLNeuron<T>::Learn()
 	{
 		std::cout << "Initial Weight" << std::endl;
 		PrintWeight();
-		std::cout << std::endl;
 	}
-
+	std::cout << "learning " << learningCount + 1 << std::endl;
 	for (int i = 0; i < size; i++)
 	{
 		output.push_back(0);
 	}
 
 	GetOutputsFromAllInputs(output);
+	PrintOutputsandExpectedOutputs(output);
 	UpdateWeight(output);
 	learningCount++;
 
@@ -108,7 +108,6 @@ void SLNeuron<T>::UpdateWeight(const std::vector<T>& output)
 	int p = 1;
 	T error;
 
-	std::cout << "learning " << learningCount + 1 << std::endl;
 	for (int i = 0; i < n; i++)
 	{
 		error = ExpectedOutput.at(i) - output.at(i);
@@ -125,8 +124,7 @@ void SLNeuron<T>::UpdateWeight(const std::vector<T>& output)
 
 	}
 	
-	PrintOutputsandExpectedOutputs(output);
-	PrintWeight();
+	//PrintWeight();
 	return;
 }
 
@@ -151,6 +149,10 @@ bool SLNeuron<T>::isLearningOver()
 		if (ExpectedOutput.at(i) != output.at(i))
 			return false;
 	}
+	//Learning 이 성공해야만 실행되는 코드.
+	std::cout << "Learning Complete!" << std::endl;
+	PrintOutputsandExpectedOutputs(output);
+	PrintWeight();
 	return true;
 }
 
@@ -229,8 +231,11 @@ template <typename T>
 void SLNeuron<T>::PrintOutputsandExpectedOutputs(const std::vector<T>& output)
 {
 	int n = output.size();
+	T error = 0;
 	for (int i = 0; i < n; i++)
 	{
 		std::cout << "ExpectedOutput : " << ExpectedOutput.at(i) << " RealOutput : " << output.at(i) << std::endl;
+		error += (ExpectedOutput.at(i) - output.at(i))*(ExpectedOutput.at(i)-output.at(i));
 	}
+	std::cout << "Total Error : " << error << std::endl;
 }

@@ -4,12 +4,12 @@
 
 int main()
 {
-	int NofInput;
-	int Threshold;
-	int Constant;
-	int Bias;
-	int Limit;
-	int Range_of_Initial_Weight;//weight의 초기화 범위
+	int NofInput=4;
+	int Threshold=0;
+	int Constant=1;
+	int Bias=-1;
+	int Limit=100;
+	int Range_of_Initial_Weight=10;//weight의 초기화 범위
 
 	std::cout << "Insert # of Input(without bias) :";
 	std::cin >> NofInput;
@@ -30,7 +30,7 @@ int main()
 	}
 	std::cout << "Insert Value of limit of Learning : ";
 	std::cin >> Limit;
-
+	
 	std::cout << "Insert Value of Range for Initializing Weights : ";
 	std::cin >> Range_of_Initial_Weight;
 	
